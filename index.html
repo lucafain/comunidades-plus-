@@ -66,6 +66,16 @@
               <input id="news-date" type="date" required />
             </label>
           </div>
+          <label>
+            Imagen (opcional)
+            <input id="news-image" type="file" accept="image/*" />
+          </label>
+          <div id="image-preview-wrapper" class="image-preview" hidden>
+            <img id="image-preview" alt="Vista previa de la noticia" />
+            <button type="button" id="remove-image" class="secondary-button">
+              Quitar imagen
+            </button>
+          </div>
           <label class="textarea-label">
             Contenido
             <textarea id="news-content" rows="5" required></textarea>
@@ -119,6 +129,9 @@
             </button>
           </div>
         </header>
+        <figure class="news-card__media" hidden>
+          <img src="" alt="" class="news-card__image" />
+        </figure>
         <p class="news-card__content"></p>
       </article>
     </template>

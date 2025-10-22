@@ -194,6 +194,20 @@ main {
   white-space: pre-line;
 }
 
+.news-card__media {
+  margin: 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: rgba(19, 75, 138, 0.08);
+}
+
+.news-card__image {
+  display: block;
+  width: 100%;
+  max-height: 320px;
+  object-fit: cover;
+}
+
 .news-card__actions {
   display: flex;
   gap: 0.4rem;
@@ -231,6 +245,19 @@ main {
 .news-form {
   display: grid;
   gap: 1.25rem;
+}
+
+.image-preview {
+  display: grid;
+  gap: 0.75rem;
+  justify-items: start;
+}
+
+.image-preview img {
+  width: min(260px, 100%);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  object-fit: cover;
 }
 
 .form-grid {

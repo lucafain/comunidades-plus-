@@ -21,11 +21,16 @@ const newsTemplate = document.getElementById('news-template');
 const titleInput = document.getElementById('news-title');
 const dateInput = document.getElementById('news-date');
 const contentInput = document.getElementById('news-content');
+const imageInput = document.getElementById('news-image');
+const imagePreviewWrapper = document.getElementById('image-preview-wrapper');
+const imagePreview = document.getElementById('image-preview');
+const removeImageButton = document.getElementById('remove-image');
 
 let newsItems = loadNews();
 let filteredNews = [...newsItems];
 let isAdmin = false;
 let editingId = null;
+let pendingImageData = null;
 
 function createId() {
   if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
@@ -40,6 +45,7 @@ function loadNews() {
       id: createId(),
       title: 'Celebración de Iom Haatzmaut en la comunidad',
       date: new Date().toISOString().slice(0, 10),
+      image: null,
       content:
         'Las comunidades de todo el país se reunieron para celebrar Iom Haatzmaut con actividades culturales, música y gastronomía típica. El evento central se realizó en la plaza principal y contó con la participación de jóvenes voluntarios.',
     },
@@ -47,6 +53,7 @@ function loadNews() {
       id: createId(),
       title: 'Nueva iniciativa educativa en Jerusalén',
       date: new Date(Date.now() - 86400000 * 3).toISOString().slice(0, 10),
+      image: null,
       content:
         'El Ministerio de Educación anunció la apertura de un programa de liderazgo para estudiantes secundarios enfocado en innovación social. La propuesta busca fortalecer los lazos entre escuelas y organizaciones comunitarias.',
     },
@@ -54,6 +61,7 @@ function loadNews() {
       id: createId(),
       title: 'Encuentro interreligioso promueve el diálogo',
       date: new Date(Date.now() - 86400000 * 7).toISOString().slice(0, 10),
+      image: null,
       content:
         'Representantes de distintas confesiones compartieron experiencias y perspectivas sobre el trabajo comunitario en Israel. Se realizaron mesas de debate, actividades de voluntariado y talleres abiertos al público.',
     },
@@ -75,6 +83,7 @@ function loadNews() {
       title: item.title || 'Noticia sin título',
       date: item.date || new Date().toISOString().slice(0, 10),
       content: item.content || '',
+      image: typeof item.image === 'string' ? item.image : null,
     }));
   } catch (error) {
     console.warn('No se pudieron cargar las noticias almacenadas. Se usará el contenido por defecto.');
@@ -104,6 +113,61 @@ function formatDate(isoDate) {
   }
 }
 
+function setImagePreview(dataUrl) {
+  if (dataUrl) {
+    imagePreview.src = dataUrl;
+    imagePreview.alt = 'Vista previa de la noticia';
+    imagePreviewWrapper.hidden = false;
+  } else {
+    imagePreview.src = '';
+    imagePreview.alt = '';
+    imagePreviewWrapper.hidden = true;
+  }
+}
+
+function handleImageSelect(event) {
+  const [file] = event.target.files || [];
+
+  if (!file) {
+    pendingImageData = null;
+    setImagePreview(null);
+    return;
+  }
+
+  if (!file.type.startsWith('image/')) {
+    alert('Por favor selecciona un archivo de imagen.');
+    imageInput.value = '';
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    if (typeof reader.result === 'string') {
+      pendingImageData = reader.result;
+      setImagePreview(pendingImageData);
+    } else {
+      pendingImageData = null;
+      setImagePreview(null);
+      alert('No se pudo cargar la imagen seleccionada. Intenta con otro archivo.');
+      imageInput.value = '';
+    }
+  };
+  reader.onerror = () => {
+    console.warn('No se pudo leer la imagen seleccionada.');
+    alert('No se pudo cargar la imagen seleccionada. Intenta con otro archivo.');
+    pendingImageData = null;
+    setImagePreview(null);
+    imageInput.value = '';
+  };
+  reader.readAsDataURL(file);
+}
+
+function handleRemoveImage() {
+  pendingImageData = null;
+  setImagePreview(null);
+  imageInput.value = '';
+}
+
 function renderNews(items = filteredNews) {
   newsSection.innerHTML = '';
 
@@ -124,6 +188,8 @@ function renderNews(items = filteredNews) {
       const dateEl = article.querySelector('.news-card__date');
       const contentEl = article.querySelector('.news-card__content');
       const actionsEl = article.querySelector('.news-card__actions');
+      const mediaEl = article.querySelector('.news-card__media');
+      const imageEl = article.querySelector('.news-card__image');
       const editButton = article.querySelector('.edit-button');
       const deleteButton = article.querySelector('.delete-button');
 
@@ -131,8 +197,20 @@ function renderNews(items = filteredNews) {
       dateEl.textContent = formatDate(newsItem.date);
       contentEl.textContent = newsItem.content;
 
+      if (newsItem.image) {
+        mediaEl.hidden = false;
+        imageEl.src = newsItem.image;
+        imageEl.alt = newsItem.title
+          ? `Imagen de la noticia ${newsItem.title}`
+          : 'Imagen de la noticia';
+      } else {
+        mediaEl.hidden = true;
+        imageEl.src = '';
+        imageEl.alt = '';
+      }
+
+      actionsEl.hidden = !isAdmin;
       if (isAdmin) {
-        actionsEl.hidden = false;
         editButton.addEventListener('click', () => startEditing(newsItem.id));
         deleteButton.addEventListener('click', () => deleteNews(newsItem.id));
       }
@@ -195,6 +273,8 @@ function handleLogout() {
 
 function clearForm() {
   newsForm.reset();
+  pendingImageData = null;
+  setImagePreview(null);
   if (!dateInput.value) {
     dateInput.valueAsDate = new Date();
   }
@@ -204,6 +284,9 @@ function clearForm() {
 }
 
 function startEditing(id) {
+  if (!isAdmin) {
+    return;
+  }
   const item = newsItems.find((news) => news.id === id);
   if (!item) return;
 
@@ -213,6 +296,9 @@ function startEditing(id) {
   titleInput.value = item.title;
   dateInput.value = item.date;
   contentInput.value = item.content;
+  pendingImageData = item.image || null;
+  setImagePreview(pendingImageData);
+  imageInput.value = '';
   titleInput.focus();
 }
 
@@ -224,6 +310,9 @@ function cancelEditing() {
 }
 
 function deleteNews(id) {
+  if (!isAdmin) {
+    return;
+  }
   const confirmation = confirm('¿Deseas eliminar esta noticia?');
   if (!confirmation) return;
 
@@ -234,11 +323,16 @@ function deleteNews(id) {
 
 function handleSubmit(event) {
   event.preventDefault();
+  if (!isAdmin) {
+    alert('Solo los administradores pueden publicar noticias.');
+    return;
+  }
 
   const newItem = {
     title: titleInput.value.trim(),
     date: dateInput.value,
     content: contentInput.value.trim(),
+    image: pendingImageData,
   };
 
   if (!newItem.title || !newItem.content || !newItem.date) {
@@ -282,6 +376,8 @@ function setupEventListeners() {
 
   loginForm.addEventListener('submit', handleLogin);
   logoutButton.addEventListener('click', handleLogout);
+  imageInput.addEventListener('change', handleImageSelect);
+  removeImageButton.addEventListener('click', handleRemoveImage);
   newsForm.addEventListener('submit', handleSubmit);
   cancelEditButton.addEventListener('click', cancelEditing);
 }
