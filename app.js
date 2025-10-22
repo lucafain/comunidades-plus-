@@ -9,7 +9,6 @@ const adminAccessButton = document.getElementById('admin-access');
 const loginModal = document.getElementById('login-modal');
 const closeModalButton = document.getElementById('close-modal');
 const loginForm = document.getElementById('login-form');
-const loginError = document.getElementById('login-error');
 const usernameInput = document.getElementById('username');
 const passwordInput = document.getElementById('password');
 const adminPanel = document.getElementById('admin-panel');
@@ -156,7 +155,6 @@ function openModal() {
   loginModal.hidden = false;
   document.body.style.overflow = 'hidden';
   loginForm.reset();
-  loginError.hidden = true;
   usernameInput.focus();
 }
 
@@ -164,7 +162,6 @@ function closeModal() {
   loginModal.hidden = true;
   document.body.style.overflow = '';
   loginForm.reset();
-  loginError.hidden = true;
 }
 
 function authenticate(username, password) {
@@ -184,7 +181,7 @@ function handleLogin(event) {
     closeModal();
     renderNews();
   } else {
-    loginError.hidden = false;
+    alert('Usuario o contraseña incorrectos.');
   }
 }
 
@@ -287,12 +284,6 @@ function setupEventListeners() {
   logoutButton.addEventListener('click', handleLogout);
   newsForm.addEventListener('submit', handleSubmit);
   cancelEditButton.addEventListener('click', cancelEditing);
-
-  [usernameInput, passwordInput].forEach((input) => {
-    input.addEventListener('input', () => {
-      loginError.hidden = true;
-    });
-  });
 }
 
 function initialize() {

@@ -5,6 +5,7 @@
   --white: #ffffff;
   --shadow: 0 10px 30px rgba(0, 40, 90, 0.15);
   --radius: 18px;
+  --accent-yellow: #ffd447;
   font-family: 'Poppins', 'Segoe UI', Tahoma, sans-serif;
   color: #0f2942;
   background-color: var(--light-blue);
@@ -113,20 +114,21 @@ body {
 
 .admin-button {
   border: none;
-  background: transparent;
-  color: var(--secondary-blue);
+  background: var(--accent-yellow);
+  color: var(--primary-blue);
   font-weight: 600;
   font-size: 0.95rem;
   cursor: pointer;
   padding: 0.75rem 1rem;
   border-radius: 999px;
-  transition: background 0.3s ease, color 0.3s ease;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .admin-button:hover,
 .admin-button:focus {
-  background: rgba(31, 111, 204, 0.15);
-  color: var(--primary-blue);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(19, 75, 138, 0.2);
 }
 
 main {
@@ -341,11 +343,6 @@ textarea {
   color: rgba(15, 41, 66, 0.6);
 }
 
-.form-error {
-  margin: 0;
-  color: #d62828;
-  font-size: 0.9rem;
-}
 
 .visually-hidden {
   position: absolute;
