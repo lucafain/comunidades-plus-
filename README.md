@@ -9,13 +9,14 @@ Página web tipo diario digital pensada para que el administrador publique, edit
 - **Acceso administrativo**: botón en la esquina superior derecha que abre un modal para iniciar sesión (usuario `Luca`, contraseña `Luca3122`).
 - **Gestión completa de noticias**: una vez autenticado, el administrador puede crear nuevas noticias, editarlas o eliminarlas desde el panel.
 - **Estética azul y blanca**: cabecera con la bandera de Israel flameando y paleta cromática acorde al pedido.
-- **Noticias con imágenes**: cada publicación puede incluir una fotografía cargada desde la computadora del administrador.
+- **Noticias con imágenes o videos**: cada publicación puede incluir material multimedia cargado desde la computadora del administrador.
+- **Vista ampliada de cada noticia**: cualquier visitante puede abrir una tarjeta para leer el desarrollo completo y ver el material multimedia en mayor tamaño.
 
 ## Uso
 
 1. Abrí `index.html` en tu navegador preferido.
 2. Explora las noticias disponibles y utilizá la barra de búsqueda para encontrar títulos específicos.
 3. Para administrar el contenido, seleccioná **Acceso administrador** e ingresá las credenciales provistas.
-4. Dentro del panel podés cargar nuevas noticias (fecha, título, imagen opcional y contenido), modificarlas o borrarlas.
+4. Dentro del panel podés cargar nuevas noticias (fecha, título, multimedia opcional y contenido), modificarlas o borrarlas.
 
 > **Nota:** Las noticias se guardan en el almacenamiento local del navegador, por lo que los cambios permanecen disponibles en el mismo dispositivo y navegador.

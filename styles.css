@@ -24,12 +24,9 @@ body {
 }
 
 .page-header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  backdrop-filter: blur(6px);
   background: rgba(255, 255, 255, 0.9);
   box-shadow: var(--shadow);
+  backdrop-filter: blur(6px);
 }
 
 .flag-banner {
@@ -192,6 +189,10 @@ main {
   line-height: 1.6;
   color: #153659;
   white-space: pre-line;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .news-card__media {
@@ -206,6 +207,43 @@ main {
   width: 100%;
   max-height: 320px;
   object-fit: cover;
+}
+
+.news-card__video {
+  width: 100%;
+  max-height: 360px;
+  display: block;
+  background: #000;
+}
+
+.news-card__footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.3rem;
+}
+
+.news-card__open {
+  border: none;
+  background: transparent;
+  color: var(--secondary-blue);
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: color 0.2s ease;
+}
+
+.news-card__open::after {
+  content: '›';
+  font-size: 1.1rem;
+}
+
+.news-card__open:hover,
+.news-card__open:focus {
+  color: var(--primary-blue);
 }
 
 .news-card__actions {
@@ -247,17 +285,22 @@ main {
   gap: 1.25rem;
 }
 
-.image-preview {
+.media-preview {
   display: grid;
   gap: 0.75rem;
   justify-items: start;
 }
 
-.image-preview img {
+.media-preview img,
+.media-preview video {
   width: min(260px, 100%);
   border-radius: 12px;
   box-shadow: var(--shadow);
   object-fit: cover;
+}
+
+.media-preview video {
+  background: #000;
 }
 
 .form-grid {
@@ -357,6 +400,11 @@ textarea {
   position: relative;
 }
 
+.modal__content--detail {
+  width: min(720px, 100%);
+  gap: 1.5rem;
+}
+
 .modal__content h2 {
   margin: 0;
   text-align: center;
@@ -372,6 +420,47 @@ textarea {
   font-size: 1.8rem;
   cursor: pointer;
   color: rgba(15, 41, 66, 0.6);
+}
+
+.detail-header {
+  display: grid;
+  gap: 0.4rem;
+}
+
+#detail-title {
+  margin: 0;
+  color: var(--primary-blue);
+}
+
+#detail-date {
+  margin: 0;
+  color: rgba(19, 75, 138, 0.7);
+  font-weight: 500;
+}
+
+.detail-media {
+  display: grid;
+  gap: 1rem;
+}
+
+.detail-media img,
+.detail-media video {
+  width: 100%;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  background: #000;
+}
+
+.detail-content {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: #153659;
+  white-space: pre-line;
+}
+
+.admin-panel[hidden],
+.news-card__actions[hidden] {
+  display: none !important;
 }
 
 

@@ -67,13 +67,14 @@
             </label>
           </div>
           <label>
-            Imagen (opcional)
-            <input id="news-image" type="file" accept="image/*" />
+            Imagen o video (opcional)
+            <input id="news-media" type="file" accept="image/*,video/*" />
           </label>
-          <div id="image-preview-wrapper" class="image-preview" hidden>
-            <img id="image-preview" alt="Vista previa de la noticia" />
-            <button type="button" id="remove-image" class="secondary-button">
-              Quitar imagen
+          <div id="media-preview-wrapper" class="media-preview" hidden>
+            <img id="image-preview" alt="Vista previa de la noticia" hidden />
+            <video id="video-preview" controls hidden></video>
+            <button type="button" id="remove-media" class="secondary-button">
+              Quitar archivo
             </button>
           </div>
           <label class="textarea-label">
@@ -130,11 +131,39 @@
           </div>
         </header>
         <figure class="news-card__media" hidden>
-          <img src="" alt="" class="news-card__image" />
+          <img src="" alt="" class="news-card__image" hidden />
+          <video class="news-card__video" controls hidden></video>
         </figure>
         <p class="news-card__content"></p>
+        <div class="news-card__footer">
+          <button class="news-card__open" type="button" aria-haspopup="dialog">
+            Ver noticia completa
+          </button>
+        </div>
       </article>
     </template>
+
+    <div
+      id="news-detail-modal"
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="detail-title"
+      hidden
+    >
+      <div class="modal__content modal__content--detail">
+        <button class="modal__close" id="detail-close" aria-label="Cerrar">×</button>
+        <header class="detail-header">
+          <h2 id="detail-title"></h2>
+          <p id="detail-date"></p>
+        </header>
+        <div id="detail-media" class="detail-media" hidden>
+          <img id="detail-image" alt="" hidden />
+          <video id="detail-video" controls hidden></video>
+        </div>
+        <div id="detail-content" class="detail-content"></div>
+      </div>
+    </div>
 
     <script src="app.js" defer></script>
   </body>
