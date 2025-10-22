@@ -315,6 +315,10 @@ textarea {
   padding: 1.5rem;
 }
 
+.modal[hidden] {
+  display: none;
+}
+
 .modal__content {
   background: var(--white);
   border-radius: var(--radius);
