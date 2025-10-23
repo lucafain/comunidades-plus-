@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500" aria-labelledby="title desc" role="img">
+  <title id="title">Bandera de Israel flameando</title>
+  <desc id="desc">Bandera de Israel con franjas onduladas que simulan movimiento.</desc>
+  <defs>
+    <linearGradient id="band" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#1f75cb" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#1f75cb" stop-opacity="0.75"/>
+    </linearGradient>
+    <filter id="soft-shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="12" stdDeviation="18" flood-color="#0f325c" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+  <g filter="url(#soft-shadow)">
+    <path fill="#ffffff" d="M0,50 Q150,0 300,40 T600,30 T900,50 T1200,20 V480 Q1050,440 900,470 T600,430 T300,460 T0,420 Z"/>
+    <path fill="url(#band)" d="M0,100 Q150,60 300,90 T600,80 T900,100 T1200,60 V180 Q1050,150 900,180 T600,140 T300,170 T0,150 Z"/>
+    <path fill="url(#band)" d="M0,320 Q150,290 300,310 T600,300 T900,320 T1200,280 V400 Q1050,360 900,390 T600,350 T300,380 T0,340 Z"/>
+    <g transform="translate(600 250) scale(1.15)" fill="none" stroke="#1f75cb" stroke-width="40" stroke-linejoin="round">
+      <polygon points="0,-120 104,60 -104,60"/>
+      <polygon points="0,120 -104,-60 104,-60"/>
+    </g>
+  </g>
+</svg>

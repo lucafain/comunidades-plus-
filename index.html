@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Comunidades Plus - Noticias</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div class="hero__background" aria-hidden="true"></div>
+      <div class="hero__flag" aria-hidden="true"></div>
+      <div class="hero__content">
+        <h1 class="hero__title">Comunidades Plus - Noticias</h1>
+        <p class="hero__subtitle">
+          Las últimas novedades de la comunidad en un solo lugar.
+        </p>
+        <div class="hero__actions">
+          <label class="search" for="searchInput">
+            <span class="search__icon" aria-hidden="true">🔍</span>
+            <input
+              id="searchInput"
+              type="search"
+              placeholder="Buscar noticias por título..."
+              autocomplete="off"
+            />
+          </label>
+          <button id="adminAccessBtn" class="admin-pill" type="button">
+            Acceso administrador
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <section class="news" aria-labelledby="newsHeading">
+        <div class="news__header">
+          <h2 id="newsHeading">Últimas noticias</h2>
+          <p class="news__hint">
+            Actualizamos en tiempo real para todos los vecinos de la comunidad.
+          </p>
+        </div>
+        <div id="newsList" class="news__list" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <aside id="adminPanel" class="admin hidden" aria-hidden="true">
+      <div class="admin__header">
+        <div>
+          <h2>Panel de administración</h2>
+          <p>Gestioná las noticias que ve la comunidad.</p>
+        </div>
+        <div class="admin__actions">
+          <button id="adminHomeBtn" class="btn btn--ghost" type="button">
+            Volver al inicio
+          </button>
+          <button id="adminLogoutBtn" class="btn btn--danger" type="button">
+            Cerrar sesión
+          </button>
+        </div>
+      </div>
+
+      <form id="newsForm" class="form" autocomplete="off">
+        <div class="form__group">
+          <label for="titleInput">Título</label>
+          <input id="titleInput" name="title" type="text" required maxlength="120" />
+        </div>
+        <div class="form__group">
+          <label for="contentInput">Contenido</label>
+          <textarea
+            id="contentInput"
+            name="content"
+            rows="6"
+            required
+            maxlength="3000"
+            placeholder="Escribí la noticia completa..."
+          ></textarea>
+        </div>
+        <div class="form__group">
+          <label for="mediaInput">Imagenes o videos (hasta 2 archivos)</label>
+          <input
+            id="mediaInput"
+            name="media"
+            type="file"
+            accept="image/*,video/*"
+            multiple
+          />
+          <p class="form__help">Podés combinar imágenes y videos. Recomendamos archivos livianos.</p>
+        </div>
+        <div id="mediaPreview" class="media-preview" aria-live="polite"></div>
+        <div class="form__actions">
+          <button id="resetFormBtn" class="btn btn--ghost" type="button">Cancelar</button>
+          <button class="btn" type="submit">Guardar noticia</button>
+        </div>
+      </form>
+
+      <section class="admin__list" aria-label="Noticias publicadas">
+        <h3>Noticias creadas</h3>
+        <div id="adminNewsList" class="admin__cards"></div>
+      </section>
+    </aside>
+
+    <div id="loginModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+      <div class="modal__content">
+        <button class="modal__close" data-close-modal type="button" aria-label="Cerrar">×</button>
+        <h2 id="loginTitle">Acceso administrador</h2>
+        <p class="modal__intro">Ingresá con tus credenciales para gestionar el portal.</p>
+        <form id="loginForm" class="form form--compact">
+          <div class="form__group">
+            <label for="usernameInput">Usuario</label>
+            <input id="usernameInput" name="username" type="text" required autocomplete="username" />
+          </div>
+          <div class="form__group">
+            <label for="passwordInput">Contraseña</label>
+            <input id="passwordInput" name="password" type="password" required autocomplete="current-password" />
+          </div>
+          <p id="loginError" class="form__error" role="alert" hidden></p>
+          <div class="form__actions">
+            <button class="btn" type="submit">Ingresar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="detailModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+      <div class="modal__content modal__content--wide">
+        <button class="modal__close" data-close-modal type="button" aria-label="Cerrar">×</button>
+        <article id="detailArticle" class="detail" aria-live="polite">
+          <header class="detail__header">
+            <h2 id="detailTitle"></h2>
+            <time id="detailDate" class="detail__date" datetime=""></time>
+          </header>
+          <section id="detailMedia" class="detail__media"></section>
+          <div id="detailBody" class="detail__body"></div>
+        </article>
+      </div>
+    </div>
+
+    <template id="emptyStateTemplate">
+      <div class="empty">
+        <p>No encontramos noticias con ese criterio todavía.</p>
+      </div>
+    </template>
+
+    <script src="app.js" type="module"></script>
+  </body>
+</html>
