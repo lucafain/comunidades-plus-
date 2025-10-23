@@ -24,49 +24,44 @@ body {
 }
 
 .page-header {
-  background: rgba(255, 255, 255, 0.9);
+  position: relative;
+  background: linear-gradient(rgba(9, 42, 94, 0.55), rgba(9, 42, 94, 0.45)),
+    url('assets/israel-flag-clouds.svg') center/cover no-repeat;
   box-shadow: var(--shadow);
-  backdrop-filter: blur(6px);
-}
-
-.flag-banner {
-  background: url('assets/israel-flag.svg') repeat-x;
-  background-size: cover;
-  height: 120px;
-  animation: wave 8s linear infinite;
-}
-
-@keyframes wave {
-  from {
-    background-position: 0 0;
-  }
-  to {
-    background-position: 200px 0;
-  }
+  color: var(--white);
 }
 
 .header-content {
+  position: relative;
   max-width: 1100px;
   margin: 0 auto;
-  padding: 1.8rem 1.5rem;
+  padding: 3rem 1.5rem 2.5rem;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  text-align: center;
+  gap: 1.5rem;
 }
 
 .header-content h1 {
-  font-size: clamp(1.8rem, 2.5vw, 2.6rem);
+  font-size: clamp(2.1rem, 3vw, 3rem);
   font-weight: 700;
-  color: var(--primary-blue);
+  color: var(--white);
   margin: 0;
+  letter-spacing: 0.02em;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.75), -2px 2px 0 rgba(0, 0, 0, 0.75),
+    2px -2px 0 rgba(0, 0, 0, 0.75), -2px -2px 0 rgba(0, 0, 0, 0.75),
+    0 4px 18px rgba(0, 0, 0, 0.6);
+  -webkit-text-stroke: 1.6px rgba(0, 0, 0, 0.85);
+  paint-order: stroke fill;
 }
 
 .header-actions {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .search-wrapper {
