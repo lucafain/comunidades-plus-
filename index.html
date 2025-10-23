@@ -73,15 +73,16 @@
             </label>
           </div>
           <label>
-            Imagen o video (opcional)
-            <input id="news-media" type="file" accept="image/*,video/*" />
+            Archivos multimedia (hasta 2, opcional)
+            <input
+              id="news-media"
+              type="file"
+              accept="image/*,video/*"
+              multiple
+            />
           </label>
           <div id="media-preview-wrapper" class="media-preview" hidden>
-            <img id="image-preview" alt="Vista previa de la noticia" hidden />
-            <video id="video-preview" controls preload="metadata" playsinline hidden></video>
-            <button type="button" id="remove-media" class="secondary-button">
-              Quitar archivo
-            </button>
+            <ul id="media-preview-list" class="media-preview__list"></ul>
           </div>
           <label class="textarea-label">
             Contenido
@@ -136,10 +137,19 @@
             </button>
           </div>
         </header>
-        <figure class="news-card__media" hidden>
-          <img src="" alt="" class="news-card__image" hidden />
-          <video class="news-card__video" controls preload="metadata" playsinline hidden></video>
-        </figure>
+        <div class="news-card__media" hidden>
+          <figure class="news-card__media-primary">
+            <img src="" alt="" class="news-card__image" hidden />
+            <video
+              class="news-card__video"
+              controls
+              preload="metadata"
+              playsinline
+              hidden
+            ></video>
+          </figure>
+          <span class="news-card__media-count" hidden></span>
+        </div>
         <p class="news-card__content"></p>
         <div class="news-card__footer">
           <button class="news-card__open" type="button" aria-haspopup="dialog">
@@ -160,10 +170,7 @@
       <div class="modal__content modal__content--detail">
         <button class="modal__close" id="detail-close" aria-label="Cerrar">×</button>
         <div id="detail-body" class="detail-body">
-          <figure id="detail-media" class="detail-media" hidden>
-            <img id="detail-image" alt="" hidden />
-            <video id="detail-video" controls preload="metadata" playsinline hidden></video>
-          </figure>
+          <div id="detail-media" class="detail-media" hidden></div>
           <div class="detail-inner">
             <header class="detail-header">
               <h2 id="detail-title"></h2>
