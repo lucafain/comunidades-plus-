@@ -401,8 +401,13 @@ textarea {
 }
 
 .modal__content--detail {
-  width: min(720px, 100%);
-  gap: 1.5rem;
+  width: min(760px, 100%);
+  padding: 0;
+  gap: 0;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  overflow: hidden;
+  max-height: min(90vh, 860px);
 }
 
 .modal__content h2 {
@@ -422,33 +427,76 @@ textarea {
   color: rgba(15, 41, 66, 0.6);
 }
 
+.modal__content--detail .modal__close {
+  top: 1rem;
+  right: 1rem;
+  width: 2.4rem;
+  height: 2.4rem;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--primary-blue);
+  box-shadow: var(--shadow);
+  font-size: 1.4rem;
+}
+
+.modal__content--detail .modal__close:hover,
+.modal__content--detail .modal__close:focus {
+  background: var(--white);
+}
+
 .detail-header {
   display: grid;
   gap: 0.4rem;
+  text-align: left;
 }
 
 #detail-title {
   margin: 0;
   color: var(--primary-blue);
+  text-align: left;
 }
 
 #detail-date {
   margin: 0;
   color: rgba(19, 75, 138, 0.7);
   font-weight: 500;
+  text-align: left;
+}
+
+.detail-body {
+  padding: clamp(1.75rem, 2.5vw, 2.5rem);
+  padding-top: clamp(2.5rem, 3vw, 3rem);
+  background: var(--white);
+  display: grid;
+  gap: 1.25rem;
+  overflow-y: auto;
+  align-content: start;
+  min-height: 0;
 }
 
 .detail-media {
-  display: grid;
-  gap: 1rem;
+  margin: 0;
+  background: #000;
+  line-height: 0;
 }
 
 .detail-media img,
 .detail-media video {
+  display: block;
   width: 100%;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  max-height: min(60vh, 520px);
+  object-fit: cover;
+}
+
+.detail-media video {
   background: #000;
+  object-fit: contain;
+}
+
+.detail-media:not([hidden]) + .detail-body {
+  padding-top: clamp(1.75rem, 2vw, 2.25rem);
 }
 
 .detail-content {
@@ -456,6 +504,7 @@ textarea {
   line-height: 1.8;
   color: #153659;
   white-space: pre-line;
+  overflow-wrap: anywhere;
 }
 
 .admin-panel[hidden],
@@ -483,5 +532,14 @@ textarea {
 
   .search-wrapper input {
     width: 100%;
+  }
+
+  .modal__content--detail {
+    max-height: 85vh;
+  }
+
+  .detail-body {
+    padding: 1.6rem;
+    padding-top: 2.4rem;
   }
 }

@@ -153,15 +153,17 @@
     >
       <div class="modal__content modal__content--detail">
         <button class="modal__close" id="detail-close" aria-label="Cerrar">×</button>
-        <header class="detail-header">
-          <h2 id="detail-title"></h2>
-          <p id="detail-date"></p>
-        </header>
-        <div id="detail-media" class="detail-media" hidden>
+        <figure id="detail-media" class="detail-media" hidden>
           <img id="detail-image" alt="" hidden />
           <video id="detail-video" controls hidden></video>
+        </figure>
+        <div id="detail-body" class="detail-body">
+          <header class="detail-header">
+            <h2 id="detail-title"></h2>
+            <p id="detail-date"></p>
+          </header>
+          <div id="detail-content" class="detail-content"></div>
         </div>
-        <div id="detail-content" class="detail-content"></div>
       </div>
     </div>
 

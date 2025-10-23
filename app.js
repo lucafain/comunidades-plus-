@@ -2,6 +2,21 @@ const STORAGE_KEY = 'comunidadesPlusNews';
 const ADMIN_USER = 'Luca';
 const ADMIN_PASSWORD = 'Luca3122';
 
+function normalizeCredential(value) {
+  if (typeof value !== 'string') {
+    return '';
+  }
+
+  const normalized =
+    typeof value.normalize === 'function'
+      ? value.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      : value;
+
+  return normalized.toLowerCase();
+}
+
+const ADMIN_USER_MATCH = normalizeCredential(ADMIN_USER);
+
 const newsSection = document.getElementById('news-section');
 const searchInput = document.getElementById('search-input');
 const searchButton = document.getElementById('search-button');
@@ -35,6 +50,7 @@ const detailContent = document.getElementById('detail-content');
 const detailMedia = document.getElementById('detail-media');
 const detailImage = document.getElementById('detail-image');
 const detailVideo = document.getElementById('detail-video');
+const detailBody = document.getElementById('detail-body');
 
 let newsItems = loadNews();
 let filteredNews = [...newsItems];
@@ -286,6 +302,9 @@ function openNewsDetail(newsItem, trigger) {
   detailDate.textContent = formatDate(newsItem.date);
   detailContent.textContent = newsItem.content;
   populateDetailMedia(newsItem.media, newsItem.title);
+  if (detailBody) {
+    detailBody.scrollTop = 0;
+  }
 
   newsDetailModal.hidden = false;
   document.body.style.overflow = 'hidden';
@@ -297,6 +316,9 @@ function closeNewsDetail() {
   detailDate.textContent = '';
   detailContent.textContent = '';
   populateDetailMedia(null);
+  if (detailBody) {
+    detailBody.scrollTop = 0;
+  }
   newsDetailModal.hidden = true;
   if (loginModal.hidden) {
     document.body.style.overflow = '';
@@ -409,7 +431,14 @@ function closeModal() {
 }
 
 function authenticate(username, password) {
-  return username === ADMIN_USER && password === ADMIN_PASSWORD;
+  if (typeof username !== 'string' || typeof password !== 'string') {
+    return false;
+  }
+
+  return (
+    normalizeCredential(username.trim()) === ADMIN_USER_MATCH &&
+    password.trim() === ADMIN_PASSWORD
+  );
 }
 
 function handleLogin(event) {
@@ -426,6 +455,8 @@ function handleLogin(event) {
     renderNews();
   } else {
     alert('Usuario o contraseña incorrectos.');
+    passwordInput.value = '';
+    passwordInput.focus();
   }
 }
 
