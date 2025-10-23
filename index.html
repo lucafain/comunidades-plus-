@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Comunidades Plus - Noticias</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="page-header">
+      <div class="header-content">
+        <h1>Comunidades Plus - Noticias</h1>
+        <div class="header-actions">
+          <div class="search-wrapper">
+            <label class="visually-hidden" for="search-input">Buscar noticias</label>
+            <input
+              id="search-input"
+              type="search"
+              placeholder="Buscar por título..."
+              autocomplete="off"
+            />
+            <button id="search-button" aria-label="Buscar">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="11" cy="11" r="7"></circle>
+                <line x1="20" y1="20" x2="16.65" y2="16.65"></line>
+              </svg>
+            </button>
+          </div>
+          <button id="admin-access" class="admin-button">Acceso administrador</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section id="news-section" aria-live="polite"></section>
+      <section id="admin-panel" class="admin-panel" hidden>
+        <div class="admin-panel__header">
+          <h2>Panel de administración</h2>
+          <div class="admin-panel__actions">
+            <button id="admin-home-button" type="button" class="secondary-button">
+              Volver al inicio
+            </button>
+            <button id="logout-button" type="button" class="secondary-button">
+              Cerrar sesión
+            </button>
+          </div>
+        </div>
+
+        <form id="news-form" class="news-form">
+          <h3 id="form-title">Crear noticia</h3>
+          <div class="form-grid">
+            <label>
+              Título
+              <input id="news-title" type="text" required />
+            </label>
+            <label>
+              Fecha
+              <input id="news-date" type="date" required />
+            </label>
+          </div>
+          <label>
+            Archivos multimedia (hasta 2, opcional)
+            <input
+              id="news-media"
+              type="file"
+              accept="image/*,video/*"
+              multiple
+            />
+          </label>
+          <div id="media-preview-wrapper" class="media-preview" hidden>
+            <ul id="media-preview-list" class="media-preview__list"></ul>
+          </div>
+          <label class="textarea-label">
+            Contenido
+            <textarea id="news-content" rows="5" required></textarea>
+          </label>
+          <div class="form-actions">
+            <button type="submit" class="primary-button">Guardar</button>
+            <button type="button" id="cancel-edit" class="secondary-button" hidden>
+              Cancelar edición
+            </button>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <div id="login-modal" class="modal" role="dialog" aria-modal="true" hidden>
+      <div class="modal__content">
+        <button class="modal__close" id="close-modal" aria-label="Cerrar">×</button>
+        <h2>Acceso administrador</h2>
+        <form id="login-form">
+          <label>
+            Usuario
+            <input id="username" type="text" required autocomplete="username" />
+          </label>
+          <label>
+            Contraseña
+            <input
+              id="password"
+              type="password"
+              required
+              autocomplete="current-password"
+            />
+          </label>
+          <button type="submit" class="primary-button">Ingresar</button>
+        </form>
+      </div>
+    </div>
+
+    <template id="news-template">
+      <article class="news-card">
+        <header class="news-card__header">
+          <div>
+            <h2 class="news-card__title"></h2>
+            <p class="news-card__date"></p>
+          </div>
+          <div class="news-card__actions" hidden>
+            <button class="icon-button edit-button" type="button" title="Editar">
+              ✏️
+            </button>
+            <button class="icon-button delete-button" type="button" title="Eliminar">
+              🗑️
+            </button>
+          </div>
+        </header>
+        <div class="news-card__media" hidden>
+          <figure class="news-card__media-primary">
+            <img src="" alt="" class="news-card__image" hidden />
+            <video
+              class="news-card__video"
+              controls
+              preload="metadata"
+              playsinline
+              hidden
+            ></video>
+          </figure>
+          <span class="news-card__media-count" hidden></span>
+        </div>
+        <p class="news-card__content"></p>
+        <div class="news-card__footer">
+          <button class="news-card__open" type="button" aria-haspopup="dialog">
+            Ver noticia completa
+          </button>
+        </div>
+      </article>
+    </template>
+
+    <div
+      id="news-detail-modal"
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="detail-title"
+      hidden
+    >
+      <div class="modal__content modal__content--detail">
+        <button class="modal__close" id="detail-close" aria-label="Cerrar">×</button>
+        <div id="detail-body" class="detail-body">
+          <div id="detail-media" class="detail-media" hidden></div>
+          <div class="detail-inner">
+            <header class="detail-header">
+              <h2 id="detail-title"></h2>
+              <p id="detail-date"></p>
+            </header>
+            <div id="detail-content" class="detail-content"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>

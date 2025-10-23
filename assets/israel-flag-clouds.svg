@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 420" role="img" aria-labelledby="title desc">
+  <title id="title">Bandera de Israel sobre cielo con nubes</title>
+  <desc id="desc">Fondo estilizado con cielo celeste, nubes suaves, franjas onduladas azules y una Estrella de David.</desc>
+  <defs>
+    <linearGradient id="skyGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#8fc0f4" />
+      <stop offset="30%" stop-color="#b5d7ff" />
+      <stop offset="100%" stop-color="#eef5ff" />
+    </linearGradient>
+    <radialGradient id="cloudGradient" cx="0.5" cy="0.4" r="0.7">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.9)" />
+      <stop offset="60%" stop-color="rgba(255,255,255,0.7)" />
+      <stop offset="100%" stop-color="rgba(255,255,255,0)" />
+    </radialGradient>
+    <linearGradient id="stripeGradient" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0f4ea8" />
+      <stop offset="100%" stop-color="#0a2f7a" />
+    </linearGradient>
+    <filter id="softBlur" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="25" result="blur" />
+    </filter>
+  </defs>
+  <rect width="2000" height="420" fill="url(#skyGradient)" />
+  <g opacity="0.85">
+    <ellipse cx="400" cy="150" rx="320" ry="130" fill="url(#cloudGradient)" />
+    <ellipse cx="950" cy="90" rx="360" ry="150" fill="url(#cloudGradient)" />
+    <ellipse cx="1500" cy="170" rx="420" ry="160" fill="url(#cloudGradient)" />
+    <ellipse cx="650" cy="280" rx="360" ry="150" fill="url(#cloudGradient)" />
+    <ellipse cx="1300" cy="300" rx="420" ry="160" fill="url(#cloudGradient)" />
+  </g>
+  <g opacity="0.18" filter="url(#softBlur)">
+    <ellipse cx="350" cy="140" rx="290" ry="120" fill="white" />
+    <ellipse cx="980" cy="110" rx="320" ry="130" fill="white" />
+    <ellipse cx="1550" cy="190" rx="360" ry="150" fill="white" />
+  </g>
+  <path
+    d="M-120 120c160-60 320-60 480 0s320 60 480 0 320-60 480 0 320 60 480 0 320-60 480 0v120c-160 60-320 60-480 0s-320-60-480 0-320 60-480 0-320-60-480 0-320 60-480 0z"
+    fill="url(#stripeGradient)"
+    opacity="0.88"
+  />
+  <path
+    d="M-120 280c160-60 320-60 480 0s320 60 480 0 320-60 480 0 320 60 480 0 320-60 480 0v120c-160 60-320 60-480 0s-320-60-480 0-320 60-480 0-320-60-480 0-320 60-480 0z"
+    fill="url(#stripeGradient)"
+    opacity="0.88"
+  />
+  <g transform="translate(1000 210) scale(1.1)">
+    <polygon points="0,-90 24,-42 78,-42 39,0 78,42 24,42" fill="none" stroke="#0f4ea8" stroke-width="14" />
+    <polygon points="0,90 -24,42 -78,42 -39,0 -78,-42 -24,-42" fill="none" stroke="#0f4ea8" stroke-width="14" />
+  </g>
+</svg>

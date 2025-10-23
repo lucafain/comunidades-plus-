@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 180" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="wave" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0e4aa8" />
+      <stop offset="50%" stop-color="#2b6dcc" />
+      <stop offset="100%" stop-color="#0e4aa8" />
+    </linearGradient>
+  </defs>
+  <rect width="300" height="180" fill="#ffffff" />
+  <rect y="18" width="300" height="30" fill="url(#wave)" opacity="0.9" />
+  <rect y="132" width="300" height="30" fill="url(#wave)" opacity="0.9" />
+  <g transform="translate(150 90) scale(1.1)" fill="#0e4aa8">
+    <polygon points="0,-40 34.64,20 -34.64,20" fill="none" stroke="#0e4aa8" stroke-width="6" />
+    <polygon points="0,40 34.64,-20 -34.64,-20" fill="none" stroke="#0e4aa8" stroke-width="6" />
+  </g>
+</svg>

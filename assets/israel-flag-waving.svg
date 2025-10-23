@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 1600 600"
+  preserveAspectRatio="xMidYMid slice"
+>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a2c5f" />
+      <stop offset="100%" stop-color="#1d63b3" />
+    </linearGradient>
+    <linearGradient id="flagShade" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="rgba(255, 255, 255, 0.45)" />
+      <stop offset="40%" stop-color="rgba(255, 255, 255, 0.05)" />
+      <stop offset="100%" stop-color="rgba(0, 32, 84, 0.35)" />
+    </linearGradient>
+    <linearGradient id="flagLight" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(255, 255, 255, 0.55)" />
+      <stop offset="50%" stop-color="rgba(255, 255, 255, 0.1)" />
+      <stop offset="100%" stop-color="rgba(0, 32, 84, 0.15)" />
+    </linearGradient>
+    <clipPath id="flagClip">
+      <path
+        id="flagShape"
+        d="M0 130C150 70 330 160 500 120C670 80 820 170 980 130C1140 90 1320 160 1480 120C1560 100 1600 130 1600 130L1600 390C1480 440 1320 350 1160 390C1000 430 820 340 660 380C500 420 320 340 160 380C70 400 0 370 0 370Z"
+      />
+    </clipPath>
+  </defs>
+  <rect width="1600" height="600" fill="url(#sky)" />
+  <g clip-path="url(#flagClip)" transform="translate(0 20)">
+    <rect x="-20" y="60" width="1640" height="420" fill="#fdfdfd" />
+    <path
+      d="M0 170C150 120 330 200 500 160C670 120 820 210 980 170C1140 130 1320 200 1480 160C1560 140 1600 170 1600 170L1600 220C1480 260 1320 200 1160 240C1000 280 820 210 660 250C500 290 320 210 160 250C70 270 0 230 0 230Z"
+      fill="#0d4ca2"
+    />
+    <path
+      d="M0 270C70 290 320 210 500 250C680 290 820 220 980 260C1140 300 1320 220 1480 260C1560 280 1600 260 1600 260L1600 330C1480 380 1320 300 1160 340C1000 380 820 300 660 340C500 380 320 300 160 340C70 360 0 320 0 320Z"
+      fill="#0d4ca2"
+    />
+    <path d="M-20 60H1620V480H-20Z" fill="url(#flagShade)" opacity="0.55" />
+    <path
+      d="M-20 160C120 110 340 210 500 180C660 150 860 220 1020 200C1180 180 1380 230 1620 200V480H-20Z"
+      fill="url(#flagLight)"
+      opacity="0.35"
+    />
+    <g transform="translate(0 -10)">
+      <polygon
+        points="800,205 723,338 877,338"
+        fill="none"
+        stroke="#0d4ca2"
+        stroke-width="16"
+        stroke-linejoin="round"
+      />
+      <polygon
+        points="800,355 723,222 877,222"
+        fill="none"
+        stroke="#0d4ca2"
+        stroke-width="16"
+        stroke-linejoin="round"
+      />
+    </g>
+  </g>
+  <use
+    href="#flagShape"
+    fill="none"
+    stroke="rgba(0, 28, 76, 0.32)"
+    stroke-width="6"
+    transform="translate(0 20)"
+  />
+</svg>
