@@ -489,8 +489,7 @@ textarea {
   margin: 0;
   background: #000;
   line-height: 0;
-  position: sticky;
-  top: 0;
+  position: relative;
   z-index: 2;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
 }
