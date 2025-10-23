@@ -28,6 +28,7 @@ const usernameInput = document.getElementById('username');
 const passwordInput = document.getElementById('password');
 const adminPanel = document.getElementById('admin-panel');
 const logoutButton = document.getElementById('logout-button');
+const adminHomeButton = document.getElementById('admin-home-button');
 const newsForm = document.getElementById('news-form');
 const formTitle = document.getElementById('form-title');
 const cancelEditButton = document.getElementById('cancel-edit');
@@ -55,6 +56,7 @@ const detailBody = document.getElementById('detail-body');
 let newsItems = loadNews();
 let filteredNews = [...newsItems];
 let isAdmin = false;
+let adminPanelVisible = false;
 let editingId = null;
 let pendingMedia = null;
 let lastFocusedTrigger = null;
@@ -441,6 +443,102 @@ function authenticate(username, password) {
   );
 }
 
+function getScrollBehavior() {
+  try {
+    if (
+      typeof window !== 'undefined' &&
+      window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
+      return 'auto';
+    }
+  } catch (error) {
+    // No es necesario manejar el error, se usa desplazamiento suave por defecto
+  }
+  return 'smooth';
+}
+
+function updateAdminAccessButton() {
+  adminAccessButton.textContent = 'Acceso administrador';
+
+  if (isAdmin) {
+    adminAccessButton.setAttribute('aria-expanded', adminPanelVisible ? 'true' : 'false');
+    adminAccessButton.setAttribute('aria-controls', 'admin-panel');
+  } else {
+    adminAccessButton.removeAttribute('aria-expanded');
+    adminAccessButton.removeAttribute('aria-controls');
+  }
+}
+
+function showAdminPanel({ scrollIntoView = true, resetForm = false } = {}) {
+  if (!isAdmin) {
+    return;
+  }
+
+  if (!adminPanelVisible) {
+    adminPanel.hidden = false;
+    adminPanelVisible = true;
+  }
+
+  updateAdminAccessButton();
+
+  if (resetForm) {
+    clearForm();
+  }
+
+  if (scrollIntoView && typeof adminPanel.scrollIntoView === 'function') {
+    const behavior = getScrollBehavior();
+    const raf =
+      typeof requestAnimationFrame === 'function'
+        ? requestAnimationFrame
+        : (callback) => setTimeout(callback, 0);
+    raf(() => {
+      try {
+        adminPanel.scrollIntoView({ behavior, block: 'start' });
+      } catch (error) {
+        adminPanel.scrollIntoView();
+      }
+    });
+  }
+}
+
+function hideAdminPanel() {
+  if (!adminPanelVisible) {
+    updateAdminAccessButton();
+    return;
+  }
+
+  adminPanel.hidden = true;
+  adminPanelVisible = false;
+  updateAdminAccessButton();
+}
+
+function handleAdminAccessClick() {
+  if (!isAdmin) {
+    openModal();
+    return;
+  }
+
+  showAdminPanel();
+}
+
+function handleAdminHome() {
+  if (!isAdmin) {
+    return;
+  }
+
+  hideAdminPanel();
+  cancelEditing();
+  const behavior = getScrollBehavior();
+  if (typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
+    try {
+      window.scrollTo({ top: 0, behavior });
+    } catch (error) {
+      window.scrollTo(0, 0);
+    }
+  }
+}
+
 function handleLogin(event) {
   event.preventDefault();
   const usernameValue = usernameInput.value.trim();
@@ -448,10 +546,8 @@ function handleLogin(event) {
 
   if (authenticate(usernameValue, passwordValue)) {
     isAdmin = true;
-    adminPanel.hidden = false;
-    adminAccessButton.hidden = true;
-    clearForm();
     closeModal();
+    showAdminPanel({ scrollIntoView: true, resetForm: true });
     renderNews();
   } else {
     alert('Usuario o contraseña incorrectos.');
@@ -462,8 +558,7 @@ function handleLogin(event) {
 
 function handleLogout() {
   isAdmin = false;
-  adminPanel.hidden = true;
-  adminAccessButton.hidden = false;
+  hideAdminPanel();
   cancelEditing();
   renderNews();
 }
@@ -475,7 +570,7 @@ function clearForm() {
   if (!dateInput.value) {
     dateInput.valueAsDate = new Date();
   }
-  if (!adminPanel.hidden) {
+  if (adminPanelVisible) {
     titleInput.focus();
   }
 }
@@ -486,6 +581,8 @@ function startEditing(id) {
   }
   const item = newsItems.find((news) => news.id === id);
   if (!item) return;
+
+  showAdminPanel({ scrollIntoView: true });
 
   editingId = id;
   formTitle.textContent = 'Editar noticia';
@@ -556,7 +653,7 @@ function setupEventListeners() {
     filterNews();
   });
 
-  adminAccessButton.addEventListener('click', openModal);
+  adminAccessButton.addEventListener('click', handleAdminAccessClick);
   closeModalButton.addEventListener('click', closeModal);
 
   loginModal.addEventListener('click', (event) => {
@@ -583,6 +680,7 @@ function setupEventListeners() {
 
   loginForm.addEventListener('submit', handleLogin);
   logoutButton.addEventListener('click', handleLogout);
+  adminHomeButton.addEventListener('click', handleAdminHome);
   detailCloseButton.addEventListener('click', closeNewsDetail);
   mediaInput.addEventListener('change', handleMediaSelect);
   removeMediaButton.addEventListener('click', handleRemoveMedia);
@@ -596,6 +694,7 @@ function initialize() {
   }
   renderNews();
   setupEventListeners();
+  updateAdminAccessButton();
 }
 
 initialize();
