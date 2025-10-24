@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" aria-labelledby="title desc" role="img">
+  <title id="title">Bandera de Israel estilizada</title>
+  <desc id="desc">Dos franjas azules y una estrella de David azul sobre fondo blanco.</desc>
+  <rect width="900" height="600" fill="#ffffff"/>
+  <rect y="70" width="900" height="120" fill="#1f75cb"/>
+  <rect y="410" width="900" height="120" fill="#1f75cb"/>
+  <g transform="translate(450 300) scale(1.25)" fill="none" stroke="#1f75cb" stroke-width="24" stroke-linejoin="round">
+    <polygon points="0,-120 104,60 -104,60"/>
+    <polygon points="0,120 -104,-60 104,-60"/>
+  </g>
+</svg>
